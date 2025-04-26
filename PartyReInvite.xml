@@ -1,0 +1,81 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd"> 
+	<Button name="PartyReInvite_IconFrame" hidden="false" enableMouse="true" parent="Minimap" toplevel="true">
+		<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
+		<Size>
+			<AbsDimension x="33" y="33"/>
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="Minimap" relativePoint="TOPLEFT">
+				<Offset>
+					<AbsDimension x="0" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="OVERLAY">
+				<Texture name="PartyReInvite_IconTexture">
+					<Size>
+						<AbsDimension x="22" y="22"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="OVERLAY">
+				<Texture file="Interface\Minimap\MiniMap-TrackingBorder">
+					<Size x="56" y="56" />
+					<Anchors>
+						<Anchor point="TOPLEFT" />
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		
+		<Frames>
+			<Frame name="PRI_DropDownMenu" inherits="UIDropDownMenuTemplate"/>
+			<Frame name="PRI_TimerFrame" toplevel="true" parent="UIParent" hidden="false"/>
+		</Frames>
+		
+		<Scripts>
+			<OnLoad>
+				PRI_OnLoad();
+				this:RegisterForDrag("RightButton");
+				this.dragme = false;
+			</OnLoad>
+			<OnEvent>
+				PRI_OnEvent();
+			</OnEvent>
+			<OnClick>
+				PRI_OnClick();
+			</OnClick>
+			<OnUpdate>
+				if(this.dragme == true) then
+					PRIButton_BeingDragged();
+				end
+			</OnUpdate>
+ 			<OnDragStart>
+				this.dragme = true;
+			</OnDragStart>
+			<OnDragStop>
+				this.dragme = false;
+			</OnDragStop>
+			<OnEnter>
+				GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+				GameTooltip:SetText("PartyReInvite");
+				GameTooltip:AddLine("Right-click and drag to move this button.");
+				GameTooltip:AddLine("Ctrl-click to cancel timer.");
+				GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+				GameTooltip:Show();
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+	   </Scripts>
+	</Button>
+</Ui>
