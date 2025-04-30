@@ -7,8 +7,8 @@ local PRI_TimerOutput = 0;
 local PRI_TimerPosX = (GetScreenWidth() / 2) - 30;
 local PRI_TimerPosY = (GetScreenHeight() / 2) * -1;
 
-PRI_TimeLeft = nil
-PRI_LastTime = nil
+PRI_TimeLeft = 0;
+PRI_LastTime = nil;
 
 
 function PRI_OnLoad()
@@ -161,6 +161,7 @@ end
 function PRI_TimerStop()
 	if PRI_Enabled then
 		if PRI_TimerTXT then
+			PRI_TimeLeft = 0
 			PRI_TimerFrame:SetScript("OnUpdate", nil)
 			if (PRI_InvitedNameVar) then
 				InviteByName(PRI_InvitedNameVar)
@@ -172,12 +173,11 @@ end
 
 
 function PRI_TimerCancel()
-	if PRI_Enabled then
-		if PRI_TimerTXT then
-			PRI_TimerFrame:SetScript("OnUpdate", nil)
-			DEFAULT_CHAT_FRAME:AddMessage(PRI_Name().."Timer canceled - stoping timer with no auto-invite.");
-			PRI_TimerTXT:Hide()
-		end
+	if PRI_TimerTXT then
+		PRI_TimeLeft = 0
+		PRI_TimerFrame:SetScript("OnUpdate", nil)
+		DEFAULT_CHAT_FRAME:AddMessage(PRI_Name().."Timer canceled - stoping timer with no auto-invite.");
+		PRI_TimerTXT:Hide()
 	end
 end
 
@@ -248,6 +248,9 @@ function PRI_Enabler(var)
 		DEFAULT_CHAT_FRAME:AddMessage(PRI_Name().."addon is now active.");
 	else
 		DEFAULT_CHAT_FRAME:AddMessage(PRI_Name().."addon is now disabled.");
+		if (PRI_TimeLeft > 0) then
+			PRI_TimerCancel();
+		end
 	end
 end
 
@@ -418,6 +421,8 @@ function PRI_OnEvent()
 					end
 					PRI_TimerStart()
 				end
+			elseif arg1 and string.find(arg1, "joins the party") and (PRI_TimeLeft > 0) then
+				PRI_TimerCancel();
 			end
 		end
 	end

@@ -2,7 +2,7 @@
 ## Title: |cff6ACAFFParty|rRe|cff6ACAFFInvite|r
 ## Notes: Auto group invite management helper
 ## Author: Kimaen-Nordanaar
-## Version: 1.0
+## Version: 1.0.1
 ## SavedVariables: PRI_Settings, PRI_ButtonPosition
 PartyReInvite.lua
 PartyReInvite.xml
