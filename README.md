@@ -1,6 +1,8 @@
 # PartyReInvite
 By Kimaenaro
-World of Warcraft 1.12 AddOn for reinvites while powerleveing
+World of Warcraft 1.12 AddOn for reinvites while powerleveing    
+
+Note: this version currently works with enGB and enUS client localiztion, if you want this to work on other loc try changing lines 416, 424, 434 to match your client party notifications.    
 
 ## Features
 - **Auto re-invite** after party leave  
